@@ -48,8 +48,12 @@ Restart begins a fresh run at mission one; progression is not saved between runs
 Later missions increase speed, gate and hazard density, and enemy motion;
 openings and pickup tolerance tighten, payload requirements rise, and deadlines
 shorten. Amber data, red hazards and cyan safe openings keep their colors.
+The difficulty multiplier grows from **1.40× at mission 10** to **2.80× at 20**
+and **2.98× at 21**. Mission 11 introduces compound attack waves; from 21 they
+occur twice as often and damage immunity shortens. Speed and opening sizes
+approach playable limits smoothly. The countdown shows the current multiplier.
 
-![Mission two countdown in the violet tunnel](docs/data-run-countdown.png)
+![Mission eleven countdown and difficulty multiplier](docs/data-run-countdown.png)
 
 ## Features
 
@@ -57,10 +61,14 @@ shorten. Amber data, red hazards and cyan safe openings keep their colors.
   curves, detailed wall panels and faint peripheral speed streaks. Fine scenery
   fades between 45 and 125 metres; sparse smooth rings preserve distant depth
   without filling the flight lane with overlapping line detail.
+  Solid wall ribs, framed vent banks and coupled conduits add **209,664 bytes**
+  of generated hardware geometry per streamed 48 metre section. Hardware detail
+  fades with distance and stays outside the flight lane.
 - A smooth courier ship with painted-metal texture, material lighting,
   raised service hatches, fasteners, cooling louvers, machined engine collars,
   articulated exhaust hardware and layered blue/orange afterburner flames.
-  The latest detail pass adds 182,256 bytes of vertex/index data.
+  The latest pass adds cooling fins, tubular canopy frames and engine plumbing:
+  **203,952 additional bytes** of vertex/index data, beyond the previous pass.
 - Ten enemy types with distinct motion and collision shapes, introduced two
   per mission. Clear target brackets and a minimal flight HUD.
 - Original stereo techno synthesized live at 48 kHz, rising from **140 to
