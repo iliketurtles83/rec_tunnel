@@ -9,6 +9,15 @@ The tunnel is the default route; Grid City is selectable from the menu.
 
 ## Play
 
+The menu is a live fly-through: the ship cruises through the tunnel or city
+while you choose. **Tab** switches the preview; **1 / 2** selects a route and
+launches, or **Enter** starts the route already on screen. The menu fades over
+0.75 seconds while the ship keeps flying through a five-second countdown.
+Control passes to you in the same journey, preserving camera, velocity and
+route. The mission clock, pickups and damage activate after the countdown.
+
+![Live tunnel menu](docs/data-run-menu.png)
+
 Collect at least **8 of 25 data gates** on a 3,000 metre route within **90 seconds**.
 Those are the opening mission's rules. Each successful uplink triggers a
 **2.4-second super-warp**, then a **five-second countdown** into a new procedural
@@ -27,8 +36,9 @@ multiplier, and near misses earn bonuses. Hold boost to accelerate from
 | Q / E | Barrel roll |
 | Escape | Pause / resume |
 | R | Restart |
-| Backspace | Return to menu |
-| 1 / 2 in menu | Tunnel / Grid City |
+| Backspace | Return to the moving menu |
+| Tab in menu | Preview the other route |
+| 1 / 2 in menu | Select Tunnel / Grid City and start |
 | M | Mute / unmute |
 | F11 | Fullscreen |
 | F12 | Screenshot |
@@ -64,6 +74,9 @@ approach playable limits smoothly. The countdown shows the current multiplier.
   Solid wall ribs, framed vent banks and coupled conduits add **209,664 bytes**
   of generated hardware geometry per streamed 48 metre section. Hardware detail
   fades with distance and stays outside the flight lane.
+- A live menu flight with gentle automatic steering, scenery crossfades and a
+  continuous moving countdown into player control. Returning to the menu keeps
+  the journey moving; later mission countdowns also cruise forward.
 - A smooth courier ship with painted-metal texture, material lighting,
   raised service hatches, fasteners, cooling louvers, machined engine collars,
   articulated exhaust hardware and layered blue/orange afterburner flames.
@@ -100,17 +113,20 @@ the `shaders`, `presets` and `assets` folders beside the executable.
 
 ## Verification and development
 
-Seven Windows CTest suites cover core behavior, mission rules, procedural music,
+Eight Windows CTest suites cover core behavior, mission rules, procedural music,
 ship geometry, six consecutive missions, normal startup and standalone EXE
-startup. The engine checks
+startup, plus live-menu handoff in both environments. The engine checks
 create hidden graphics windows and exercise the audio device while muted.
 The four platform-independent suites do not require a graphics window.
 
 ```sh
 build/cybertunnel --hidden --startup-check
+build/cybertunnel --hidden --menu-check --seed 83
 build/cybertunnel --hidden --autoplay --missions 6 --audio-check --seed 83
 build/cybertunnel --hidden --mission-shot 9 --w 1920 --h 1080 --out gameplay.png
 build/cybertunnel --hidden --transition-shot 3.2 --out countdown.png --seed 83
+build/cybertunnel --hidden --menu-shot 9 --out menu.png --seed 83
+build/cybertunnel --hidden --intro-shot 2.4 --out moving-countdown.png --seed 83
 build/cybertunnel --music-preview techno-preview.wav --mission 2 --seed 83
 build/cybertunnel --sandbox --env 0
 ```
