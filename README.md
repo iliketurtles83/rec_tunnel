@@ -1,6 +1,6 @@
 # DATA // RUN
 
-A playable data-courier game built on the original `rec_tunnel` C11/raylib
+A playable endless data-courier game built on the original `rec_tunnel` C11/raylib
 flight sandbox. Fly through the twisting Data Vortex tunnel, collect amber data
 gates, avoid security hazards and enter the cyan uplink before time runs out.
 The tunnel is the default route; Grid City is selectable from the menu.
@@ -10,6 +10,11 @@ The tunnel is the default route; Grid City is selectable from the menu.
 ## Play
 
 Collect at least **8 of 25 data gates** on a 3,000 metre route within **90 seconds**.
+Those are the opening mission's rules. Each successful uplink triggers a
+**2.4-second super-warp**, then a **five-second countdown** into a new procedural
+route with a new tunnel palette and techno arrangement. Your score carries
+forward and one shield point recovers. There is no final mission.
+
 Three hazard hits disable the ship. Consecutive pickups increase your score
 multiplier, and near misses earn bonuses. Hold boost to accelerate from
 **32 to 65 m/s**; missed pickups do not interrupt boost.
@@ -28,8 +33,23 @@ multiplier, and near misses earn bonuses. Hold boost to accelerate from
 | F11 | Fullscreen |
 | F12 | Screenshot |
 
-The game pauses when its window loses focus. This is a replayable arcade
-vertical slice with one mission type; there is no campaign or saved progression.
+The game pauses when its window loses focus, including during warp and countdown.
+Restart begins a fresh run at mission one; progression is not saved between runs.
+
+| Mission | New enemy types | Total kinds |
+| --- | --- | --- |
+| 1 | Guard drone, moving sweeper | 2 |
+| 2 | Paired mines, laser wall | 4 |
+| 3 | Orbiter, moving shutter | 6 |
+| 4 | Interceptor, laser rotor | 8 |
+| 5 | Pulsar, splitter | 10 |
+| 6 onward | All ten kinds, increasing difficulty | 10 |
+
+Later missions increase speed, gate and hazard density, and enemy motion;
+openings and pickup tolerance tighten, payload requirements rise, and deadlines
+shorten. Amber data, red hazards and cyan safe openings keep their colors.
+
+![Mission two countdown in the violet tunnel](docs/data-run-countdown.png)
 
 ## Features
 
@@ -37,10 +57,11 @@ vertical slice with one mission type; there is no campaign or saved progression.
   curves, detailed wall panels and faint peripheral speed streaks.
 - A smooth courier ship with painted-metal texture, material lighting,
   articulated exhaust petals and blue/orange afterburner flames.
-- Armored drones, moving sweepers, paired mines and laser walls with cyan safe
-  openings. Clear target brackets and a minimal flight HUD.
+- Ten enemy types with distinct motion and collision shapes, introduced two
+  per mission. Clear target brackets and a minimal flight HUD.
 - Original stereo techno synthesized live at 48 kHz, rising from **140 to
-  166 BPM** with actual speed, plus procedural sound effects.
+  166 BPM** with actual speed, five mission arrangements with different bass
+  progressions and percussion, and a faster warp mix. Procedural sound effects.
 - Sustained boost and full elapsed-time simulation across long frames.
 - A startup crash fix for zero-time first frames. Windows builds embed their
   textures, shaders, presets, font and license notices, so the EXE runs alone.
@@ -67,22 +88,27 @@ the `shaders`, `presets` and `assets` folders beside the executable.
 
 ## Verification and development
 
-Six Windows CTest suites cover core behavior, mission rules, procedural music,
-ship geometry, normal startup and standalone EXE startup. The startup checks
+Seven Windows CTest suites cover core behavior, mission rules, procedural music,
+ship geometry, six consecutive missions, normal startup and standalone EXE
+startup. The engine checks
 create hidden graphics windows and exercise the audio device while muted.
 The four platform-independent suites do not require a graphics window.
 
 ```sh
 build/cybertunnel --hidden --startup-check
-build/cybertunnel --hidden --autoplay --audio-check --seed 83
+build/cybertunnel --hidden --autoplay --missions 6 --audio-check --seed 83
 build/cybertunnel --hidden --mission-shot 9 --w 1920 --h 1080 --out gameplay.png
-build/cybertunnel --music-preview techno-preview.wav --seed 83
+build/cybertunnel --hidden --transition-shot 3.2 --out countdown.png --seed 83
+build/cybertunnel --music-preview techno-preview.wav --mission 2 --seed 83
 build/cybertunnel --sandbox --env 0
 ```
 
 Use `cybertunnel.exe` in those commands on Windows. The music preview exports
 24 seconds of the live synthesizer, moving from cruise to afterburner tempo.
-`--sandbox` retains the original development environments and debug tools.
+`--missions N` bounds an automated test run; interactive play remains endless.
+`--mission N` starts a particular mission for testing. `--transition-shot` captures
+seconds after the first successful uplink. `--sandbox` retains the original
+development environments and debug tools.
 
 See [game details and verification](sandbox/cybertunnel/DATA_RUN.md) and the
 [module integration guide](sandbox/cybertunnel/INTEGRATION.md).
