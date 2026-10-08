@@ -54,9 +54,13 @@ shorten. Amber data, red hazards and cyan safe openings keep their colors.
 ## Features
 
 - The original curved tunnel, rotating rings and helical ribbons, with smoother
-  curves, detailed wall panels and faint peripheral speed streaks.
+  curves, detailed wall panels and faint peripheral speed streaks. Fine scenery
+  fades between 45 and 125 metres; sparse smooth rings preserve distant depth
+  without filling the flight lane with overlapping line detail.
 - A smooth courier ship with painted-metal texture, material lighting,
-  articulated exhaust petals and blue/orange afterburner flames.
+  raised service hatches, fasteners, cooling louvers, machined engine collars,
+  articulated exhaust hardware and layered blue/orange afterburner flames.
+  The latest detail pass adds 182,256 bytes of vertex/index data.
 - Ten enemy types with distinct motion and collision shapes, introduced two
   per mission. Clear target brackets and a minimal flight HUD.
 - Original stereo techno synthesized live at 48 kHz, rising from **140 to
