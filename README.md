@@ -24,7 +24,10 @@ Those are the opening mission's rules. Each successful uplink triggers a
 route with a new tunnel palette and techno arrangement. Your score carries
 forward and one shield point recovers. There is no final mission.
 
-Three hazard hits disable the ship. Consecutive pickups increase your score
+Three hazard hits disable the ship. Damage scorches plating and cracks the
+canopy. Rare green repair kits restore one shield point and reduce visible
+damage, up to the three-point maximum. Each mission has a 12.5% chance of one
+kit, placed just beyond a data gate. Consecutive pickups increase your score
 multiplier, and near misses earn bonuses. Hold boost to accelerate from
 **32 to 65 m/s**; missed pickups do not interrupt boost.
 
@@ -80,8 +83,15 @@ approach playable limits smoothly. The countdown shows the current multiplier.
 - A smooth courier ship with painted-metal texture, material lighting,
   raised service hatches, fasteners, cooling louvers, machined engine collars,
   articulated exhaust hardware and layered blue/orange afterburner flames.
-  The latest pass adds cooling fins, tubular canopy frames and engine plumbing:
-  **203,952 additional bytes** of vertex/index data, beyond the previous pass.
+  Wings bank and pitch with steering; winglets lean and turn, and trailing flaps
+  deflect independently. Damped servos move the solid beveled surfaces, their
+  hinges and attached lights smoothly. More rivets, panel seams, pivot barrels,
+  actuator rods and reinforced fin spines add **179,868 bytes** of geometry
+  beyond the prior cooling-fin, canopy-frame and plumbing upgrade.
+- Progressive scorched plating, exposed-metal wear and canopy cracks as shields
+  are lost. Rare green repair crates have a glowing medical cross, green target
+  brackets and a rising pickup tone. Repairs restore one shield point; speed,
+  payload, score and combo continue normally.
 - Ten enemy types with distinct motion and collision shapes, introduced two
   per mission. Clear target brackets and a minimal flight HUD.
 - Original stereo techno synthesized live at 48 kHz, rising from **140 to
@@ -90,6 +100,8 @@ approach playable limits smoothly. The countdown shows the current multiplier.
 - Sustained boost and full elapsed-time simulation across long frames.
 - A startup crash fix for zero-time first frames. Windows builds embed their
   textures, shaders, presets, font and license notices, so the EXE runs alone.
+
+![Intact, damaged and critical ship detail](docs/data-run-ship-detail.png)
 
 ## Build
 
@@ -113,15 +125,16 @@ the `shaders`, `presets` and `assets` folders beside the executable.
 
 ## Verification and development
 
-Eight Windows CTest suites cover core behavior, mission rules, procedural music,
+Nine Windows CTest suites cover core behavior, mission rules, procedural music,
 ship geometry, six consecutive missions, normal startup and standalone EXE
-startup, plus live-menu handoff in both environments. The engine checks
+startup, live-menu handoff in both environments, and ship/repair rendering. The engine checks
 create hidden graphics windows and exercise the audio device while muted.
 The four platform-independent suites do not require a graphics window.
 
 ```sh
 build/cybertunnel --hidden --startup-check
 build/cybertunnel --hidden --menu-check --seed 83
+build/cybertunnel --hidden --ship-check --audio-check --seed 83
 build/cybertunnel --hidden --autoplay --missions 6 --audio-check --seed 83
 build/cybertunnel --hidden --mission-shot 9 --w 1920 --h 1080 --out gameplay.png
 build/cybertunnel --hidden --transition-shot 3.2 --out countdown.png --seed 83
