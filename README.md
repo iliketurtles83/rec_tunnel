@@ -35,8 +35,8 @@ multiplier, and near misses earn bonuses. Hold boost to accelerate from
 | --- | --- |
 | Enter | Start / retry |
 | WASD / arrows | Steer |
-| Shift / Space | Boost / afterburner |
-| Q / E | Barrel roll |
+| Shift / Space | Boost / afterburner with thrust-vector steering |
+| Q / E | Barrel roll, with differential jet assist while boosted |
 | Escape | Pause / resume |
 | R | Restart |
 | Backspace | Return to the moving menu |
@@ -97,11 +97,18 @@ approach playable limits smoothly. The countdown shows the current multiplier.
 - Original stereo techno synthesized live at 48 kHz, rising from **140 to
   166 BPM** with actual speed, five mission arrangements with different bass
   progressions and percussion, and a faster warp mix. Procedural sound effects.
+- Boost-gated thrust vectoring: twin nozzles gimbal up to 14 degrees with
+  steering, with their flames and wake following the same pose. Lateral thrust
+  sharpens boosted maneuvers; opposite vertical deflections assist banking and
+  barrel rolls. Spherical swivel sockets support the moving exhaust hardware.
+  Servo motion and assist follow actual boost speed and recenter on release.
 - Sustained boost and full elapsed-time simulation across long frames.
 - A startup crash fix for zero-time first frames. Windows builds embed their
   textures, shaders, presets, font and license notices, so the EXE runs alone.
 
 ![Intact, damaged and critical ship detail](docs/data-run-ship-detail.png)
+
+![Vectored boost steering and roll assist](docs/data-run-vectoring.png)
 
 ## Build
 
@@ -125,11 +132,12 @@ the `shaders`, `presets` and `assets` folders beside the executable.
 
 ## Verification and development
 
-Nine Windows CTest suites cover core behavior, mission rules, procedural music,
+Ten Windows CTest suites cover core behavior, mission rules, procedural music,
 ship geometry, six consecutive missions, normal startup and standalone EXE
-startup, live-menu handoff in both environments, and ship/repair rendering. The engine checks
+startup, live-menu handoff in both environments, ship/repair rendering and
+thrust-vector physics. The engine checks
 create hidden graphics windows and exercise the audio device while muted.
-The four platform-independent suites do not require a graphics window.
+The five platform-independent suites do not require a graphics window.
 
 ```sh
 build/cybertunnel --hidden --startup-check
