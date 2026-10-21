@@ -28,7 +28,7 @@ The suites have no per-case filter; each binary runs all its cases from `main()`
 ## Running the sandbox
 
 ```sh
-./build/cybertunnel --sandbox --env N        # 0 vortex, 1 template, 2 grid city, 3 server corridor, 4 greybox
+./build/cybertunnel --sandbox --env N        # 0 vortex, 1 template, 2 grid city, 3 server corridor, 4 greybox, 5 crystal field
   [--seed N] [--preset NAME] [--set name=value ...] [--shot SECONDS --out FILE] [--bench SECONDS]
   [--list-params] [--write-preset NAME] [--boost] [--noship] [--hdr8]
 ```
@@ -41,7 +41,7 @@ On this machine the command sandbox blocks the display. Window, `--shot` and `--
 
 ## Architecture
 
-- **Core / environment split** (`src/env/env.h`). The core owns the path, chunk streaming, ship/flight, camera and HDR post. An `Environment` is a table of callbacks: `pathStyle`, `registerParams`, `buildChunk`, `uploadChunk`, `drawBackground/Opaque/Emissive`, `energyAt`, `atmosphere`. Registry: `ENV_VORTEX=0, ENV_TEMPLATE=1, ENV_CITY=2, ENV_CORRIDOR=3, ENV_GREYBOX=4` (the greybox is a plain movement-tuning course, `--env 4 --preset greybox`; registry ids are not the "Env #N" names in the docs). To add one, follow INTEGRATION.md §11 (copy `env_template.c`, register in `env.h`, `cybertunnel.h`, `cybertunnel.c` and `CMakeLists.txt`).
+- **Core / environment split** (`src/env/env.h`). The core owns the path, chunk streaming, ship/flight, camera and HDR post. An `Environment` is a table of callbacks: `pathStyle`, `registerParams`, `buildChunk`, `uploadChunk`, `drawBackground/Opaque/Emissive`, `energyAt`, `atmosphere`. Registry: `ENV_VORTEX=0, ENV_TEMPLATE=1, ENV_CITY=2, ENV_CORRIDOR=3, ENV_GREYBOX=4, ENV_CRYSTAL=5` (the greybox is a plain movement-tuning course, `--env 4 --preset greybox`; registry ids are not the "Env #N" names in the docs). To add one, follow INTEGRATION.md §11 (copy `env_template.c`, register in `env.h`, `cybertunnel.h`, `cybertunnel.c` and `CMakeLists.txt`).
 - **Determinism is a hard rule.** `buildChunk` is pure CPU with no GL calls. Its output depends only on (seed, params, chunkIndex, path). Seed RNGs with `ct_hash64_3(seed, ENV_ID, chunkIndex)` and per-feature sub-streams; never use `rand()` or `GetRandomValue()`. Tests check build-order independence (`build_order_independent()` in `tests/test_main.c`). `init` is called with `shaders == NULL` in tests, so skip GL work then.
 - **Path** (`core/path.c`): centripetal Catmull-Rom from noise-driven control points, arc-length resampled into a ring buffer, with rotation-minimizing frames. Open environments (city, corridor) set `floorDepth`, `maxPitchDeg=0` and `twistRateMax=0` to get a flat path with world-up normals.
 - **Precision**: world positions are double (`DVec3`). Rendering uses "render space" = world − `renderOrigin` (floating origin), and chunk geometry is stored relative to `chunk->origin`.
@@ -54,7 +54,7 @@ On this machine the command sandbox blocks the display. Window, `--shot` and `--
 
 - `BRIEF.md`: original spec, palette and pitfalls checklist.
 - `NOTES.md`: per-phase implementation log with acceptance results and user feedback decisions for Env #1–#3.
-- `PLAN_ENV2_GRID_CITY.md`, `PLAN_ENV3_SERVER_CORRIDOR.md`: environment plans.
+- `PLAN_ENV2_GRID_CITY.md`, `PLAN_ENV3_SERVER_CORRIDOR.md`, `PLAN_ENV4_CRYSTAL_FIELD.md`: environment plans.
 - `INTEGRATION.md`: public API, GL ownership and the full parameter table.
 - `DATA_RUN.md`: the game.
 
