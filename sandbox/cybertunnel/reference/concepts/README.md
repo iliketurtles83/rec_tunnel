@@ -13,6 +13,7 @@ Decision: **Env #4 = crystal field.** The other ideas, ranked: circuit canyon, s
 | `env4-circuit-canyon_00001_.png` / `_00002_` | Circuit-board canyon, ribbon-cable bridges | 84864230 / +1 |
 | `env4-signal-sea_00001_.png` / `_00002_` | Oscilloscope wave sea, overhead neon arcs | 994955659 / +1 |
 | `env4-hex-conduit_00001_.png` / `_00002_` | Hexagonal/prismatic data conduit | 527518987 / +1 |
+| `env4-crystal-flythrough_00001_.png` … `_00004_` | Crystal field set piece: flying through a giant hollow icosahedron (2026-10-21, for review) | 2578833489 / +1 / +2 / +3 |
 
 ## Prompts
 
@@ -39,3 +40,9 @@ spaceship with two thin white engine trails, centred low in the frame, …* and 
   faint scrolling data panels, magenta circuit traces running lengthwise along the walls, and
   bright white seams where wall segments meet. Center of the tunnel is clear and dark, leading
   toward a pale cyan glow at the vanishing point.
+- **Crystal fly-through (set piece):** flying through the hollow interior of a colossal orange neon
+  wireframe icosahedron. The giant polyhedron's glowing orange and amber edge lines arc all around the
+  frame like the ribs of a cathedral, converging in perspective toward an exit opening ahead, its
+  triangular faces faintly translucent with a warm glassy sheen. Beyond the exit, a dark black-blue void
+  with small floating orange wireframe polyhedra and a soft distant warm glow at the vanishing point.
+  Clear open flight lane in the centre. Sparse white speed streaks.
