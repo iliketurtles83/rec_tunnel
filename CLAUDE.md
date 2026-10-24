@@ -57,5 +57,6 @@ On this machine the command sandbox blocks the display. Window, `--shot` and `--
 - `PLAN_ENV2_GRID_CITY.md`, `PLAN_ENV3_SERVER_CORRIDOR.md`, `PLAN_ENV4_CRYSTAL_FIELD.md`: environment plans.
 - `INTEGRATION.md`: public API, GL ownership and the full parameter table.
 - `DATA_RUN.md`: the game.
+- `BACKLOG.md`: open items not tied to an environment phase.
 
 Record new environment work in `NOTES.md` in the same style.
